@@ -1,0 +1,4 @@
+repository "Terreno Beta - SCP Outbreak@Matex2395@cloud"
+  path "/"
+    br "/main"
+    co "/main"
