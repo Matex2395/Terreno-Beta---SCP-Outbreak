@@ -4,34 +4,20 @@ using UnityEngine;
 
 public class ThirdPersonCam : MonoBehaviour
 {
-    [Header("References")]
-    public Transform orientation;
-    public Transform player;
-    public Transform playerObj;
-    public Rigidbody rb;
-
-    public float rotationSpeed;
-
-    public GameObject thirdPersonCam;
-
-    private void Start()
+    //Referencia del jugador
+    public GameObject player;
+    // Vector que me indica el desplazamiento del jugador y la cámara
+    Vector3 distance;
+    // Start is called before the first frame update
+    void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        distance = transform.position - player.transform.position;
     }
 
-    private void Update()
+    // Update is called once per frame
+    void Update()
     {
-        // rotate orientation
-        Vector3 viewDir = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
-        orientation.forward = viewDir.normalized;
-
-        // roate player object
-            float horizontalInput = Input.GetAxis("Horizontal");
-            float verticalInput = Input.GetAxis("Vertical");
-            Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
-
-            if (inputDir != Vector3.zero)
-                playerObj.forward = Vector3.Slerp(playerObj.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
+        transform.position = player.transform.position + distance;
     }
 }
+
